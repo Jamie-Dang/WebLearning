@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/homeController');
-const courseController = require('../controllers/courseController');
+const passport = require('passport');
 
 /**
  * GET /
@@ -10,43 +10,51 @@ const courseController = require('../controllers/courseController');
 router.get('', homeController.getHomePage);
 
 // Routes - Courses
-router.get('/courses', (req, res) => {
-    res.render('pages/courses/courses');
-});
+router.use('/courses', require('./courseRoutes'));
 
+// Routes - Login
+router.use('/login', require('./loginRoutes'));
+
+// Routes - Register
+router.use('/register', require('./registerRoutes'));
+
+// Routes - Login
+router.use('/logout', require('./logoutRoutes'));
+
+// Router - Not Found (not existed!)
+router.use((req, res) => res.render('pages/notFound/notFound'));
+
+// Test
+// router.post(
+//     '/login/login',
+//     passport.authenticate('local', {
+//         successRedirect: '/',
+//         failureRedirect: '/login',
+//     }),
+// );
+
+// const ProductCateModel = require('../models/productCategoryModel');
 // function insertProductData() {
-//     ProductModel.insertMany([
+//     ProductCateModel.insertMany([
 //         {
-//             name: 'Operating Systems',
+//             name: 'Software Engineering',
 //             slug: 'software-engineering',
-//             image: './img/image-course.png',
-//             price: 12.99,
-//             time: '02 hours 5 minutes',
-//             description: 'For software engineer',
+//             image: 'https://eduport.webestica.com/assets/images/element/online.svg',
 //         },
 //         {
-//             name: 'Net Working',
-//             slug: 'net-working',
-//             image: './img/image-course.png',
-//             price: 5.99,
-//             time: '01 hours 5 minutes',
-//             description: 'For net working',
+//             name: 'Data Science',
+//             slug: 'data-science',
+//             image: 'https://eduport.webestica.com/assets/images/element/data-science.svg',
 //         },
 //         {
-//             name: 'Big Data',
-//             slug: 'big-date',
-//             image: './img/image-course.png',
-//             price: 20.1,
-//             time: '02 hours 5 minutes',
-//             description: 'For big data',
+//             name: 'Engineering',
+//             slug: 'engineering',
+//             image: 'https://eduport.webestica.com/assets/images/element/engineering.svg',
 //         },
 //         {
-//             name: 'Artificial Intelligence',
-//             slug: 'artificial-intelligence',
-//             image: './img/image-course.png',
-//             price: 19.99,
-//             time: '03 hours 5 minutes',
-//             description: 'For artificial intelligence',
+//             name: 'Web Development',
+//             slug: 'web-development',
+//             image: 'https://eduport.webestica.com/assets/images/element/coding.svg',
 //         },
 //     ]);
 // }

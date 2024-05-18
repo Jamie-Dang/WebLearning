@@ -8,7 +8,7 @@
         <% data.forEach(category => { %>
         <a href="/category/<%= category._id %>"
             ><div class="box">
-                <img src="./img/certificate-svgrepo-com.svg" alt="" width="80" height="80" />
+                <img src="<%= category.image %>" alt="" width="80" height="80" />
                 <h3><%= category.name %></h3>
                 <p><%= category.ordering %> lessons</p>
             </div></a

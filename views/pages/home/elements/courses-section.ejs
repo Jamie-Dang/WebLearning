@@ -7,28 +7,30 @@
     <div class="course-content">
         <% productData.forEach(product => { %>
         <div class="row">
-            <img src="<%= product.image %>" alt="" />
-            <div class="courses-text">
-                <h5>$<%= product.price %></h5>
-                <h3><%= product.name %></h3>
-                <h6><%= product.time %></h6>
-                <div class="rating">
-                    <div class="star">
-                        <a href="#"><i class="bx bxs-star"></i></a>
-                        <a href="#"><i class="bx bxs-star"></i></a>
-                        <a href="#"><i class="bx bxs-star"></i></a>
-                        <a href="#"><i class="bx bxs-star"></i></a>
-                        <a href="#"><i class="bx bx-star"></i></a>
+            <a href="/courses/<%= product._id %>">
+                <img src="<%= product.image %>" alt="" />
+                <div class="courses-text">
+                    <h5>$<%= product.price %></h5>
+                    <h3><%= product.name %></h3>
+                    <h6><%= product.time %></h6>
+                    <div class="rating">
+                        <div class="star">
+                            <a href="#"><i class="bx bxs-star"></i></a>
+                            <a href="#"><i class="bx bxs-star"></i></a>
+                            <a href="#"><i class="bx bxs-star"></i></a>
+                            <a href="#"><i class="bx bxs-star"></i></a>
+                            <a href="#"><i class="bx bx-star"></i></a>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <p>{5 reviews}</p>
                     </div>
                 </div>
-                <div class="review">
-                    <p>{5 reviews}</p>
-                </div>
-            </div>
+            </a>
         </div>
         <% }) %>
     </div>
     <div class="main-btn">
-        <a href="#" class="btn">All Courses</a>
+        <a href="/courses" class="btn">All Courses</a>
     </div>
 </section>

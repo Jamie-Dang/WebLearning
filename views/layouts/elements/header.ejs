@@ -1,6 +1,6 @@
 <!--Start header-->
 <header>
-    <a href="#" class="logo">
+    <a href="/" class="logo">
         <img src="/img/logo.png" alt="logo" />
     </a>
     <div class="header-searchBar">
@@ -10,13 +10,21 @@
         </button>
     </div>
     <ul class="navbar">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Courses</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">My learning</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/my-learning">My learning</a></li>
+
+        <% if(loggedIn) { %>
+        <li><a href="/logout">Log Out </a></li>
+        <% } else { %>
+        <li class="nav-item"></li>
+        <li><a href="/login">Log In</a></li>
+        <li><a href="/register">Register</a></li>
+        <% } %>
     </ul>
 
-    <div class="header-icons">
-        <a href="#"><i class="bx bx-user"></i></a>
-    </div>
+    <!-- <div class="header-icons">
+        <a href="/login"><i class="bx bx-user"></i></a>
+    </div> -->
 </header>

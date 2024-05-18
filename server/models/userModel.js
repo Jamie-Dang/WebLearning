@@ -1,42 +1,37 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-  },
+const UserSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: [true, 'Please enter your email!'],
+            // unique: true,
+        },
 
-  email: {
-    type: String,
-    unique: true,
-  },
+        password: {
+            type: String,
+            required: [true, 'Please enter your password!'],
+        },
 
-  phone: {
-    type: String,
-  },
+        // role: {
+        //     type: Number,
+        //     enum: ['user', 'admin'],
+        //     default: 'user',
+        // },
+    },
+    {
+        timestamps: true,
+    },
+);
 
-  address: {
-    type: String,
-  },
-
-  role: {
-    type: String,
-    enum: ["user", "staff", "admin"],
-    default: "user",
-  },
-
-  password: {
-    type: String,
-  },
+UserSchema.pre('save', function (next) {
+    const user = this;
+    bcrypt.hash(user.password, 10, (error, hash) => {
+        user.password = hash;
+        next();
+    });
 });
 
-userSchema.pre("save", function (next) {
-  if (!this.isModified("password")) return next();
-
-  this.password = bcrypt.hashSync(this.password, 12);
-
-  next();
-});
-
-const userModel = mongoose.model("User", userSchema);
-module.exports = userModel;
+const User = mongoose.model('User', UserSchema);
+module.exports = User;

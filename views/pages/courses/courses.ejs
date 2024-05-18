@@ -1,1 +1,48 @@
-Courses
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Head -->
+        <%- include('./../../layouts/elements/head') %>
+        <link rel="stylesheet" href="css/courses.css" type="text/css" />
+    </head>
+    <body>
+        <div>
+            <!-- Header -->
+            <%- include('./../../layouts/elements/header') %>
+
+            <!-- Content -->
+            <div class="container">
+                <div class="course-content" id="course__content">
+                    <% productData.forEach(product => { %>
+
+                    <div class="row">
+                        <a href="/courses/<%= product._id %>">
+                            <img src="<%= product.image %>" alt="" />
+                            <div class="courses-text">
+                                <h5>$<%= product.price %></h5>
+                                <h3><%= product.name %></h3>
+                                <h6><%= product.time %></h6>
+                                <div class="rating">
+                                    <div class="star">
+                                        <a href="#"><i class="bx bxs-star"></i></a>
+                                        <a href="#"><i class="bx bxs-star"></i></a>
+                                        <a href="#"><i class="bx bxs-star"></i></a>
+                                        <a href="#"><i class="bx bxs-star"></i></a>
+                                        <a href="#"><i class="bx bx-star"></i></a>
+                                    </div>
+                                </div>
+                                <div class="review">
+                                    <p>{5 reviews}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Script -->
+        <%- include('./../../layouts/elements/script') %>
+    </body>
+</html>

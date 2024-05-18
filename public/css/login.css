@@ -1,0 +1,27 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    list-style: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+}
+
+.form-container {
+    margin: 100px auto;
+    padding: 70px 13%;
+}
+
+.bi-google {
+    font-size: 30px;
+    color: rgb(247, 116, 23);
+    cursor: pointer;
+    padding: 0 7px;
+}
+.bi-facebook {
+    font-size: 30px;
+    color: blue;
+    cursor: pointer;
+    padding: 0 7px;
+}
