@@ -16,15 +16,11 @@
         <li><a href="/my-learning">My learning</a></li>
 
         <% if(loggedIn) { %>
-        <li><a href="/logout">Log Out </a></li>
+        <li><a href="/logout" onclick="logoutUser()">Log Out </a></li>
         <% } else { %>
         <li class="nav-item"></li>
         <li><a href="/login">Log In</a></li>
         <li><a href="/register">Register</a></li>
         <% } %>
     </ul>
-
-    <!-- <div class="header-icons">
-        <a href="/login"><i class="bx bx-user"></i></a>
-    </div> -->
 </header>
