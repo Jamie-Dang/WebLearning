@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const homeController = require('../controllers/homeController');
 const passport = require('passport');
-
+const userController = require('../controllers/userController');
 /**
  * GET /
  * Routes - Home
@@ -20,6 +20,27 @@ router.use('/register', require('./registerRoutes'));
 
 // Routes - Login
 router.use('/logout', require('./logoutRoutes'));
+
+// Routes - Login
+router.use('/stages', require('./stagesRoutes'));
+
+//---------------------------------------------------
+// Google OAuth routes
+router.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+router.get(
+    '/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/success',
+        failureRedirect: '/failure',
+    }),
+);
+
+// Success and failure routes
+router.get('/success', userController.successGoogleLogin);
+router.get('/failure', userController.failureGoogleLogin);
+
+//---------------------------------------------------
 
 // Router - Not Found (not existed!)
 router.use((req, res) => res.render('pages/notFound/notFound'));

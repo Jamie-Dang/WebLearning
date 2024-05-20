@@ -3,6 +3,10 @@ const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema(
     {
+        _id: {
+            type: String, // Use String to match Google's profile.id
+            required: true,
+        },
         username: {
             type: String,
             required: [true, 'Please enter your email!'],
@@ -13,7 +17,9 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: [true, 'Please enter your password!'],
         },
-
+        displayName: {
+            type: String,
+        },
         // role: {
         //     type: Number,
         //     enum: ['user', 'admin'],

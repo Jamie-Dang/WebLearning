@@ -1,11 +1,11 @@
 const express = require('express');
 const passport = require('passport');
 
-const accountController = require('../controllers/accountController');
+const userController = require('../controllers/accountController');
 
 const router = express.Router();
 
-router.get('/', accountController.getNewUSer);
+router.get('/', userController.getNewUSer);
 
 //
 // router.post(
@@ -16,5 +16,5 @@ router.get('/', accountController.getNewUSer);
 //     }),
 // );
 
-router.post('/register', accountController.postNewUser);
+router.post('/register', userController.postNewUser);
 module.exports = router;

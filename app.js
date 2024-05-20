@@ -2,22 +2,29 @@ require('dotenv').config();
 
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
-const expressSession = require('express-session');
+const session = require('express-session');
 const connectDB = require('./server/configs/db');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 
+// Đăng nhập với mail / facebook
+const passport = require('passport');
+const facebookStrategy = require('passport-facebook').Strategy;
+require('./passport');
+// --------------------------------------------------------------
+
 const app = express();
 const PORT = 5000 || process.env.PORT;
 
-const configPassport = require('./server/controllers/passportController');
+// const configPassport = require('./server/controllers/passportController');
 
 // Connect to DB
 connectDB();
 
 // body - parser để lấy dữ liệu từ trình duyệt
 const bodyParser = require('body-parser');
+const { Strategy } = require('passport-facebook');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,20 +32,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 // Template Engine
 app.use(expressLayout);
+// --------------------------------------------------------------
+// app.use(passport.initialize());
+// app.use(passport.session());
+// --------------------------------------------------------------
 // use express-session
 // Cài đặt middleware session
 app.use(
-    expressSession({
-        secret: 'keyboard cat', // Chuỗi bí mật để ký và mã hóa session cookie
-        // resave: false,
-        // saveUninitialized: true,
+    session({
+        resave: false,
+        saveUninitialized: true,
+        secret: process.env.SESSION_SECRET,
     }),
 );
 
+// Passport initialization
+app.use(passport.initialize());
+app.use(passport.session());
+// --------------------------------------------------------------
+// make our facebook strategy
+// passport.use(new facebookStrategy({
+
+// }))
+
+// --------------------------------------------------------------
 // Dung de kiem tra dieu kien cho nao an va hien thi
-global.loggedIn = null;
-app.use('*', (req, res, next) => {
-    loggedIn = req.session.userId;
+// global.loggedIn = null;
+app.use((req, res, next) => {
+    console.log('Session User ID:', req.session.userId);
+    res.locals.loggedIn = req.session.userId !== undefined;
     next();
 });
 
@@ -47,7 +69,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', require('./server/routes/main'));
 
-configPassport();
+// configPassport();
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);

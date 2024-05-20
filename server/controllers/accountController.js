@@ -70,9 +70,13 @@ exports.postNewUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getLogout = catchAsync(async (req, res, next) => {
-    req.session.destroy(() => {
-        // Đây là callback được truyền vào hàm destroy()
-        res.redirect('/');
+    // Đây là callback được truyền vào hàm destroy()
+    req.session.destroy((err) => {
+        if (err) {
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/login');
     });
 });
 
